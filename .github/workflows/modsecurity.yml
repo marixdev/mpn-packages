@@ -28,18 +28,18 @@ jobs:
     name: ${{ matrix.codename }} ${{ matrix.arch }}
     # The module is built for the CPU of the runner, so arm64 runs on an arm64 runner (free for public repositories).
     runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
-    timeout-minutes: 30
+    # apt inside the amd64 containers was slow enough on 2026-11-19 that two builds hit 30 minutes.
+    timeout-minutes: 60
     container: ${{ matrix.image }}
     strategy:
       fail-fast: false
       matrix:
         arch: [amd64, arm64]
-        # Ubuntu 26.04 (resolute) is left out: nginx.org has no package for it, and Mini Panel uses the distribution's own nginx
-        # 1.28.3 and packaged modules there.
-        codename: [jammy, noble, bookworm, trixie]
+        codename: [jammy, noble, resolute, bookworm, trixie]
         include:
           - { codename: jammy, family: ubuntu, image: "ubuntu:22.04" }
           - { codename: noble, family: ubuntu, image: "ubuntu:24.04" }
+          - { codename: resolute, family: ubuntu, image: "ubuntu:26.04" }
           - { codename: bookworm, family: debian, image: "debian:12" }
           - { codename: trixie, family: debian, image: "debian:13" }
     steps:
