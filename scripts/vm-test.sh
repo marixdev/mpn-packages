@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Tries the "one fixed nginx" plan on a real machine (not a container): installs nginx 1.28.3, loads ModSecurity and PageSpeed, and checks
+# Tries the "one fixed nginx" plan on a real machine (not a container): installs nginx 1.30.7, loads ModSecurity and PageSpeed, and checks
 # that both work together, survive a reload and a restart, and that apt will not move nginx to another version.
 #   vm-test.sh <codename> <debian|ubuntu> <nginxorg|distro> <folder with the .so files>
-#     nginxorg  nginx 1.28.3 from nginx.org, the two modules built by the workflows of this repository
+#     nginxorg  nginx 1.30.7 from nginx.org, the two modules built by the workflows of this repository
 #     distro    the nginx of the distribution (Ubuntu 26.04 ships 1.28.3), the modules of the distribution and of We-Amp
 set -uo pipefail
 codename="${1:?codename}"; family="${2:?family}"; mode="${3:?nginxorg or distro}"; mods="${4:?folder}"
-NGX=1.28.3
+NGX=1.30.7
 export DEBIAN_FRONTEND=noninteractive
 APT=(apt-get -o DPkg::Lock::Timeout=600 -y -qq)
 pass=0; fail=0

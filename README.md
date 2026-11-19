@@ -6,8 +6,8 @@ The modules the distributions ship are each built for the nginx version of that 
 
 | Workflow | What it does |
 |---|---|
-| `modsecurity.yml` | Builds ModSecurity-nginx against the source of nginx 1.28.3 with the arguments of the nginx.org package, in a container of each system, loads it into that package and checks that a plain rule and the OWASP Core Rule Set block attacks. |
-| `pagespeed.yml` | Builds the PageSpeed module with the build scripts of [We-Amp/mod_pagespeed](https://github.com/We-Amp/mod_pagespeed) against nginx 1.28.3, loads it into the nginx.org package and checks that a page is processed. Slow: Bazel builds the whole engine. |
+| `modsecurity.yml` | Builds ModSecurity-nginx against the source of nginx 1.30.7 with the arguments of the nginx.org package, in a container of each system, loads it into that package and checks that a plain rule and the OWASP Core Rule Set block attacks. |
+| `pagespeed.yml` | Builds the PageSpeed module with the build scripts of [We-Amp/mod_pagespeed](https://github.com/We-Amp/mod_pagespeed) against nginx 1.30.7, loads it into the nginx.org package and checks that a page is processed. Slow: Bazel builds the whole engine. |
 
 Everything downloaded is checked against a checksum fixed in the workflow (nginx source, the connector, the PageSpeed release), and the nginx.org package is installed at an exact version with an apt pin and a hold.
 

@@ -16,11 +16,11 @@ on:
       nginx_version:
         description: "nginx.org version to build for"
         required: true
-        default: "1.28.3"
+        default: "1.30.7"
       nginx_sha256:
         description: "SHA-256 of nginx-<version>.tar.gz"
         required: true
-        default: "2c96a946bfb0882a21744ed429770a2123ae1828c7c48665092993ddee91a918"
+        default: "2565b5c837050e958f70fb0f73c48e2bca4542ad349fd356f46fb0c72610bc6e"
       module_tag:
         description: "Release of We-Amp/mod_pagespeed to build"
         required: true
