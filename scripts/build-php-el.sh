@@ -50,6 +50,12 @@ echo "${OPENSSL_SHA256}  openssl.tgz" | sha256sum -c - > /dev/null || { echo "op
 mkdir php openssl
 tar xJf php.txz -C php --strip-components=1
 tar xzf openssl.tgz -C openssl --strip-components=1
+# PHP 5.6 multiplies with inline assembly on arm64 whose "X" constraints let GCC 11 and newer pick vector registers, which mul and smulh
+# do not take ("operand 2 must be an integer register"). PHP 7.0 fixed it with "=&r" and "r"; the same change is made here.
+if [ "$php5" = 1 ]; then
+  sed -i 's/: "=X"(__tmpvar), "=X"(usedval)/: "=\&r"(__tmpvar), "=\&r"(usedval)/; s/: "X"(a), "X"(b));/: "r"(a), "r"(b));/' php/Zend/zend_multiply.h
+  grep -q '"=&r"(__tmpvar), "=&r"(usedval)' php/Zend/zend_multiply.h || { echo "zend_multiply.h was not patched" >&2; exit 1; }
+fi
 
 # The old OpenSSL, static, inside the PHP folder so nothing else on the machine sees it. It reads the system's CA bundle.
 # OpenSSL 1.0.2 has no "no-tests" option, does not build in parallel, and needs its own lib folder name.
