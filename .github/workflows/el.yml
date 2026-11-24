@@ -36,6 +36,9 @@ env:
   CRS_SHA256: "a3ecf5d5b0f8001e2eaf2006448fc8e22d6b645d7fc1c71268be5b99a7395a2d"
   OPENSSL_VERSION: "1.1.1w"
   OPENSSL_SHA256: "cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8"
+  # PHP 5.6 does not build against OpenSSL 1.1; 1.0.2u is the last 1.0.2.
+  OPENSSL10_VERSION: "1.0.2u"
+  OPENSSL10_SHA256: "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16"
 
 jobs:
   modsecurity:
@@ -72,6 +75,7 @@ jobs:
         el: [el9, el10]
         arch: [amd64, arm64]
         php:
+          - { v: "5.6.40", sha: "1369a51eee3995d7fbd1c5342e5cc917760e276d561595b6052b21ace2656d1c" }
           - { v: "7.0.33", sha: "ab8c5be6e32b1f8d032909dedaaaa4bbb1a209e519abb01a52ce3914f9a13d96" }
           - { v: "7.1.33", sha: "bd7c0a9bd5433289ee01fd440af3715309faf583f75832b64fe169c100d52968" }
           - { v: "7.2.34", sha: "409e11bc6a2c18707dfc44bc61c820ddfd81e17481470f3405ee7822d8379903" }
